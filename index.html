@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ARZEN BLOOM｜私が咲く、6か月。</title>
+  <meta name="description" content="日本の精神性と世界基準の美が出会う場所。ARZEN BLOOMは、女性が安心して成長できる“自己変革のための6か月”。呼吸・姿勢・存在感・写真で、本来のあなたが静かに花開く。" />
+  
+  <!-- 伝統的な明朝体フォントを追加 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* 和モダン・夜桜カラーパレット */
+      --bg: #0d0f14;       /* 深い藍墨色 */
+      --paper: #14161d;    /* わずかに明るい背景 */
+      --card: rgba(255, 255, 255, 0.03);
+      --line: rgba(255, 255, 255, 0.12);
+      
+      --text: #f0f0f0;     /* 胡粉色（ごふんいろ）に近い白 */
+      --muted: rgba(255, 255, 255, 0.75);
+      --soft: rgba(255, 255, 255, 0.55);
+      
+      --sakura: #f5b0c9;   /* 桜色 */
+      --sakura-deep: #cc6d8f; /* 濃い桜色 */
+      --gold: #c5a059;     /* 枯茶・金 */
+      --accent: var(--sakura);
+      
+      --radius: 12px;      /* 角を少し鋭くして「和」の緊張感を出す */
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      
+      --max: 1120px;
+      --pad: clamp(18px, 3vw, 28px);
+      --h1: clamp(32px, 4.5vw, 56px);
+      --h2: clamp(24px, 3.2vw, 36px);
+      --h3: clamp(18px, 2.2vw, 22px);
+      --p:  clamp(15px, 1.55vw, 17px);
+      
+      --font-serif: "Zen Old Mincho", serif; /* 和の明朝体 */
+      --font-sans: ui-sans-serif, system-ui, sans-serif; /* 洋のゴシック体 */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--font-sans);
+      color:var(--text);
+      background-color: var(--bg);
+      /* 夜桜の背景：舞い散る花びらのような光 */
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(245, 176, 201, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(197, 160, 89, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 50% 80%, rgba(204, 109, 143, 0.1) 0%, transparent 50%);
+      letter-spacing:.04em; /* 余白を少し広げて優雅に */
+    }
+    
+    /* タイトル周りは明朝体で「和・伝統」を表現 */
+    h1, h2, h3, .brand b, .bigPrice, .kicker {
+      font-family: var(--font-serif);
+    }
+    
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 var(--pad)}
+    
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(12px);
+      background: rgba(13, 15, 20, 0.85);
+      border-bottom:1px solid var(--line);
+    }
+    .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px var(--pad)}
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:36px; height:36px; border-radius:8px; /* 少し角ばらせる */
+      background: linear-gradient(135deg, var(--gold), var(--sakura-deep));
+      box-shadow: 0 4px 20px rgba(245, 176, 201, 0.3);
+      position: relative;
+    }
+    /* ロゴの中に桜の花びらのような意匠 */
+    .logo::after {
+        content: ""; position: absolute; inset: 6px;
+        background: rgba(255,255,255,0.2);
+        clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    .brand b{font-weight:900; letter-spacing:.05em; font-size: 1.1em;}
+    
+    .nav .ctaRow{display:flex; gap:12px; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 20px; border-radius:4px; /* 角を落としすぎない */
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:500; font-size:14px;
+      transition:.3s ease;
+      white-space:nowrap;
+      font-family: var(--font-sans);
+    }
+    .btn:hover{background: rgba(255,255,255,.08); border-color: var(--sakura)}
+    
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--gold), var(--sakura-deep));
+      color:#fff; border-color: transparent;
+      box-shadow: 0 8px 25px rgba(204, 109, 143, 0.3);
+      position: relative; overflow: hidden;
+    }
+    .btnPrimary:hover{filter:brightness(1.1); box-shadow: 0 12px 30px rgba(204, 109, 143, 0.5);}
+    
+    .hero{
+      padding: 80px 0 50px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 32px;
+      align-items:center;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns:1fr; }
+    }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:6px 16px; border:1px solid var(--gold);
+      border-radius:99px; color: var(--gold); background: rgba(197, 160, 89, 0.1);
+      font-size:14px; font-weight: 700; margin-bottom: 16px;
+    }
+    .dot{width:6px; height:6px; border-radius:50%; background: var(--sakura)}
+    
+    h1{
+        margin:0 0 16px; 
+        font-size:var(--h1); 
+        line-height:1.2; 
+        letter-spacing:.05em;
+        background: linear-gradient(to right, #fff, #faddd8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .sub{font-size: var(--p); color: var(--muted); line-height:1.9; max-width: 54ch}
+    
+    .heroCard{
+      border:1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      position:relative;
+      overflow:hidden;
+    }
+    /* 和紙のような質感のボーダーアクセント */
+    .heroCard::after {
+        content:""; position:absolute; inset: 0;
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, rgba(245,176,201,0.3), transparent) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    .heroMedia{
+      border-radius: 8px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.3);
+      height: 380px;
+      display:flex; align-items:center; justify-content:center;
+      color: var(--soft);
+      overflow:hidden;
+      position: relative;
+    }
+    /* 画像に薄く桜色のフィルターをかける */
+    .heroMedia img {
+        filter: contrast(1.05) saturate(1.1);
+    }
+    
+    .heroMeta{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:12px;
+      background: rgba(0,0,0,.2);
+      min-height:70px;
+      text-align: center;
+    }
+    .pill b{display:block; font-size:12px; color:var(--gold); margin-bottom: 4px; font-family: var(--font-serif);}
+    .pill span{display:block; font-weight:500; font-size: 15px;}
+    
+    .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px}
+    
+    section{padding: 60px 0}
+    
+    .sectionTitle{
+      margin-bottom: 30px;
+      border-left: 4px solid var(--sakura-deep); /* 和の縦書きのようなアクセント */
+      padding-left: 20px;
+    }
+    
+    h2{margin:0; font-size: var(--h2); line-height:1.3; color: #fff;}
+    .lead{margin: 10px 0 0; color: var(--muted); line-height:1.8; font-size: var(--p); max-width: 72ch}
+    
+    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+    @media (max-width: 860px){ .grid2{grid-template-columns:1fr} }
+    
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: .3s;
+    }
+    .card:hover {
+        border-color: var(--sakura-deep);
+        background: rgba(255,255,255,0.04);
+    }
+    
+    .card h3{margin:0 0 10px; font-size: var(--h3); color: var(--sakura);}
+    .card p{margin:0; color: var(--muted); line-height:1.9; font-size: var(--p)}
+    
+    .quote{
+      border: 1px solid var(--gold);
+      padding: 24px;
+      background: rgba(197, 160, 89, 0.05);
+      border-radius: 8px;
+      color: var(--text);
+      line-height:2.0;
+      font-family: var(--font-serif);
+      text-align: center;
+      position: relative;
+    }
+    .quote::before {
+        content: "“"; font-size: 60px; color: var(--gold); opacity: 0.3;
+        position: absolute; top: -10px; left: 10px; font-family: serif;
+    }
+    
+    .icons4{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+    @media (max-width: 980px){ .icons4{grid-template-columns:repeat(2,1fr)} }
+    
+    .iconCard{
+      border:1px solid var(--line);
+      background: rgba(20, 22, 28, 0.6);
+      border-radius: var(--radius);
+      padding: 20px;
+      min-height: 180px;
+      text-align: center;
+    }
+    .icon{
+      width:48px; height:48px; border-radius:50%; /* 円形にして和の「円」を意識 */
+      background: linear-gradient(135deg, var(--gold), var(--sakura-deep));
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      margin: 0 auto 16px;
+    }
+    .iconCard b{display:block; margin-bottom:8px; font-family: var(--font-serif); color: #fff; font-size: 1.1em;}
+    .iconCard p{margin:0; color: var(--muted); line-height:1.7; font-size: 14px; text-align: left;}
+    
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing: 0;
+      overflow:hidden;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .table th, .table td{
+      padding: 18px 20px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size: 15px;
+      line-height:1.7;
+    }
+    .table th{color: var(--sakura); font-weight:700; background: rgba(0,0,0,.2); font-family: var(--font-serif); width: 15%; white-space: nowrap;}
+    .table tr:last-child td{border-bottom:none}
+    
+    .badge{
+      display:inline-flex; padding:6px 14px; border-radius:99px;
+      border:1px solid var(--gold);
+      background: rgba(197, 160, 89, 0.15);
+      color: var(--gold);
+      font-weight:700;
+      font-size:12px; letter-spacing: 0.05em;
+    }
+    
+    .teachers{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+    @media (max-width: 1100px){ .teachers{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width: 520px){ .teachers{grid-template-columns:1fr} }
+    
+    .teacher{
+      border:1px solid var(--line);
+      border-radius: 8px; /* 少しシャープに */
+      background: rgba(255,255,255,.02);
+      overflow:hidden;
+      transition: .3s;
+    }
+    .teacher:hover{ border-color: var(--line); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.3);}
+    
+    .teacherImg{
+      height:220px; /* 少し縦長にしてポートレートを美しく */
+      background: #111;
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:center;
+      color: var(--soft);
+      position: relative;
+    }
+    /* 講師画像に金色の枠線を薄く */
+    .teacherImg::after {
+        content:""; position: absolute; inset: 10px; border: 1px solid rgba(197, 160, 89, 0.3);
+    }
+    
+    .teacherBody{padding:18px}
+    .teacherBody b{display:block; font-size:16px; font-family: var(--font-serif); margin-bottom: 4px;}
+    .role{display:block; color: var(--sakura); font-size:12px; margin-bottom: 12px; font-weight: 500;}
+    .teacherBody p{margin:0; color: var(--muted); line-height:1.8; font-size:13px}
+    
+    .centerCta{
+      border:1px solid var(--gold);
+      background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(0,0,0,0));
+      border-radius: 12px;
+      padding: 30px;
+      display:flex; align-items:center; justify-content:space-between; gap:20px;
+      flex-wrap:wrap;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .centerCta .copy{max-width: 60ch}
+    .centerCta .copy b{font-size:18px; display:block; font-family: var(--font-serif); color: var(--gold); margin-bottom: 8px;}
+    .centerCta .copy span{display:block; color: var(--muted); line-height:1.8; font-size:14px}
+    
+    .price{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:20px;
+    }
+    @media (max-width: 920px){ .price{grid-template-columns:1fr} }
+    
+    .bigPrice{
+      font-size: 40px; font-weight:900; letter-spacing:0;
+      margin: 8px 0 16px;
+      color: #fff;
+    }
+    .fine{color:var(--muted); line-height:1.85; font-size:14px; margin:0}
+    .list{margin: 16px 0 0; padding-left: 20px; color: var(--muted); line-height:2.0}
+    .list li::marker { color: var(--sakura); }
+    
+    footer{
+      padding: 40px 0 80px;
+      color: var(--soft);
+      border-top: 1px solid var(--line);
+      background: #08090c;
+      text-align: center;
+    }
+    .mini{font-size:12px; color: rgba(255,255,255,.4); line-height:1.8; font-family: var(--font-serif);}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>ARZEN BLOOM</b><br/>
+          <span style="color:var(--muted); font-size:11px; font-family:var(--font-serif);">私が咲く、6か月。</span>
+        </div>
+      </div>
+      <div class="ctaRow">
+        <a class="btn" href="#overview">プログラム</a>
+        <a class="btn" href="#teachers">講師</a>
+        <a class="btn btnPrimary" href="#apply">無料説明会 / 申込み</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div>
+          <div class="kicker"><span class="dot" aria-hidden="true"></span>日本の精神性 × 世界基準の美</div>
+          <h1>私が咲く、6か月。<br/>本来のあなたが、<br/>静かに花開く。</h1>
+          <p class="sub">
+            呼吸を整え、姿勢を整え、意識を“今ここ”に戻す。<br/>
+            無理に変わるのでも、誰かになるのでもない。<br/>
+            “在り方”と“見られ方”が一致したとき、あなたの美しさは自然に伝わります。
+          </p>
+          <div class="heroActions">
+            <a class="btn btnPrimary" href="#apply">無料説明会 / 申込み</a>
+            <a class="btn" href="#change">6か月後の変化を見る</a>
+          </div>
+          <div style="margin-top:24px" class="quote">
+            これは競争ではありません。比較もしない。順位もない。<br/>
+            誰かと比べなくていい。あなたのペースで、あなたを整える6か月です。
+          </div>
+        </div>
+
+        <div class="heroCard">
+          <div class="heroMedia">
+            <!-- メイン画像 -->
+            <img src="DE72B7D9-85AA-41A3-954A-061516BA0A88.jpg" alt="ARZEN BLOOM: 日本の精神性と世界基準の美" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="heroMeta">
+            <div class="pill">
+              <b>期間</b><span>6か月</span>
+            </div>
+            <div class="pill">
+              <b>定員</b><span>10名限定</span>
+            </div>
+            <div class="pill">
+              <b>料金</b><span>¥770,000</span>
+            </div>
+          </div>
+          <p class="fine" style="margin-top:16px; text-align:center;">
+            <span style="color:var(--gold);">少人数制</span> ｜ 分割可：¥130,000 × 6回
+          </p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- EMPATHY -->
+  <section>
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>「私なんて」と言わない人生へ。</h2>
+          <p class="lead">
+            変わりたいのに、どこから手をつけたらいいかわからない。<br/>
+            自信が揺れやすく、写真を見るのが少し怖い。そんな女性のためのプログラムです。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>こんな感覚、ありませんか？</h3>
+          <p>
+            ・頑張っているのに、心が満たされない<br/>
+            ・姿勢や表情に自信がなく、写真が苦手<br/>
+            ・人前だと“ちゃんとしなきゃ”と力が入る<br/>
+            ・比較で疲れてしまう／自分を責めてしまう
+          </p>
+        </div>
+        <div class="card">
+          <h3>ARZEN BLOOMが大切にすること</h3>
+          <p>
+            変化は“足し算”ではなく“整えること”から始まる。<br/>
+            呼吸で思考のノイズを静め、姿勢で自信を取り戻し、表現で存在感が育つ。<br/>
+            あなたの内側から、美しさが自然に立ち上がる設計です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>ARZEN BLOOMとは</h2>
+          <p class="lead">
+            日本の精神性と、世界基準の美が出会う場所。<br/>
+            内側（心・呼吸・静けさ）と外側（姿勢・歩き方・存在感）を調和させ、
+            “美しく見せる人”ではなく“美しく在る人”へ。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>日本の美：禅の教えと呼吸法</h3>
+          <p>
+            呼吸を整え、思考のノイズを静める。<br/>
+            何者かになろうとする焦りを手放し、“今ここ”に戻る。<br/>
+            内面から満ちていく静かな美しさを育てます。
+          </p>
+        </div>
+        <div class="card">
+          <h3>世界の美：ウォーキングと国際的な立ち振る舞い</h3>
+          <p>
+            堂々とした立ち方、歩き方、目線。<br/>
+            外に向けて“自然に伝わる存在感”を身につける。<br/>
+            その瞬間、あなたの印象は「静かに強い」へ変わります。
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:24px" class="quote">
+        内側と外側。心と身体。静けさと存在感。<br/>
+        すべてが調和したとき、あなたの“在り方”と“見られ方”は一致していきます。
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUR BEAUTIES -->
+  <section>
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>6か月で整える、4つの美しさ</h2>
+          <p class="lead">
+            ただ痩せるのでも、ただ魅せるのでもない。<br/>
+            「身体」「心」「姿勢」「カメラの前」——4つの軸を同時に整えます。
+          </p>
+        </div>
+      </div>
+
+      <div class="icons4">
+        <div class="iconCard">
+          <div class="icon" aria-hidden="true"></div>
+          <b>① 身体の美しさ</b>
+          <p>週1回 栄養・食事サポート（全24回）。無理な制限ではなく、自分を大切にする食習慣へ。</p>
+        </div>
+        <div class="iconCard">
+          <div class="icon" aria-hidden="true"></div>
+          <b>② 心の美しさ</b>
+          <p>月1回 パーソナルコーチング（全6回）。「私はこういう人だから」を手放し、自由に自分らしく。</p>
+        </div>
+        <div class="iconCard">
+          <div class="icon" aria-hidden="true"></div>
+          <b>③ 姿勢と立ち姿</b>
+          <p>月1回 姿勢・ポージング（全6回）。姿勢が変わると印象が変わり、印象が変わると自信が生まれる。</p>
+        </div>
+        <div class="iconCard">
+          <div class="icon" aria-hidden="true"></div>
+          <b>④ カメラの前での美しさ</b>
+          <p>月1回 Matthew Mind Talk（全6回）。自然な表情・目線・エネルギーが“伝わる”自分へ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM TABLE -->
+  <section>
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>プログラム内容</h2>
+          <p class="lead">6か月間の「習慣」と「自己表現」を、無理なく積み上げる設計です。</p>
+        </div>
+        <span class="badge">比較なし / 順位なし / 全員グランプリ</span>
+      </div>
+
+      <table class="table" aria-label="プログラム内容">
+        <thead>
+          <tr>
+            <th style="width:18%">頻度</th>
+            <th style="width:38%">内容</th>
+            <th>目的 / 変化</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>毎週</b></td>
+            <td>栄養・食事サポート（全24回）</td>
+            <td>身体が整うと、心も整う。自分を大切にする食習慣と自己管理力が育つ。</td>
+          </tr>
+          <tr>
+            <td><b>月1回</b></td>
+            <td>パーソナルコーチング（全6回）</td>
+            <td>自己認識の書き換え。「私なんて」の根をほどき、自然体で挑戦できる土台を作る。</td>
+          </tr>
+          <tr>
+            <td><b>月1回</b></td>
+            <td>姿勢・ポージングトレーニング（全6回）</td>
+            <td>凛とした佇まいへ。立ち姿が変わると、声と表情まで変わる。</td>
+          </tr>
+          <tr>
+            <td><b>月1回</b></td>
+            <td>Matthew Mind Talk（全6回）</td>
+            <td>カメラの前で緊張しない自分へ。表情・目線・存在感を“伝わる形”に整える。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:24px" class="quote">
+        写真は、あなたの内面を映します。<br/>
+        自分を信じられるようになったとき、写真はあなたを美しく映し出します。
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section id="teachers">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>講師紹介</h2>
+          <p class="lead">
+            “安心して変われる”のは、チームが伴走するから。<br/>
+            ここは、あなたを否定しない場所です。
+          </p>
+        </div>
+      </div>
+
+      <div class="teachers">
+
+        <div class="teacher">
+          <div class="teacherImg">
+            <!-- 画像：神崎啓慎 -->
+            <img src="0fc9c661f8d2e43737357de394872cf9.JPEG" alt="神崎啓慎" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="teacherBody">
+            <b>神崎啓慎（かんざき ひろのり）</b>
+            <span class="role">Bungy into the earth 代表｜一般財団法人MIZUNOTE 理事</span>
+            <p>
+              早稲田大学でアメフト全国優勝・アイアンマン完走。ユニクロでは店長として全国7位、
+              本社で新規デジタル/物流PJ立ち上げを経験。コーチとして累計200名以上をセッション。<br/>
+              20回のバンジーと約100名の挑戦同行を通じて、「恐怖を超え一歩踏み出す勇気」を伝える。<br/>
+              <b>「怖さは消さなくていい。“怖いまま一歩”が、人生を動かす。」</b>
+            </p>
+          </div>
+        </div>
+
+        <div class="teacher">
+          <div class="teacherImg">
+            <!-- 画像：Matthew Jordan Smith -->
+            <img src="a26f1c36ece0405508ebb9d8ebe33944.JPEG" alt="Matthew Jordan Smith" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="teacherBody">
+            <b>Matthew Jordan Smith</b>
+            <span class="role">受賞歴多数フォトグラファー｜Nikon / SanDisk アンバサダー｜グローバル教育者</span>
+            <p>
+              30年以上のキャリアで世界的著名人やグローバルブランドを多数撮影。
+              被写体に「ポーズを取らせる」のではなく、“本来の姿”を引き出す撮影スタイルで
+              信頼を集める。2021年にはIOC公式招待でオリンピック選手村に滞在し、
+              アスリートの感情の軌跡を記録した初のフォトグラファーとして歴史を刻む。<br/>
+              <b>「写真は“あなたの内側”を映す。自分を信じた瞬間、写り方は変わる。」</b>
+            </p>
+          </div>
+        </div>
+
+        <div class="teacher">
+          <div class="teacherImg">
+            <!-- 画像：栄養・食事サポート担当 -->
+            <small>講師画像を挿入</small>
+          </div>
+          <div class="teacherBody">
+            <b>（講師名）</b>
+            <span class="role">栄養・食事サポート / 週1フィードバック（全24回）</span>
+            <p>
+              身体を責めるのではなく、身体を味方につける。<br/>
+              “続く仕組み”で、自然に整う食習慣へ導きます。
+            </p>
+          </div>
+        </div>
+
+        <div class="teacher">
+          <div class="teacherImg">
+            <!-- 画像：姿勢・ポージング担当 -->
+            <small>講師画像を挿入</small>
+          </div>
+          <div class="teacherBody">
+            <b>（講師名）</b>
+            <span class="role">姿勢・ポージング / 月1（全6回）</span>
+            <p>
+              姿勢は、あなたの“内面の自信”を外に翻訳する技術。<br/>
+              凛とした立ち姿で、存在感が自然に伝わる身体をつくります。
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px" class="centerCta">
+        <div class="copy">
+          <b>講師名・実績を入れると、LPの信頼度が一段上がります。</b>
+          <span>（講師名）部分をあなたが埋めれば、このまま公開クオリティです。</span>
+        </div>
+        <a class="btn btnPrimary" href="#apply">無料説明会 / 申込み</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANGE -->
+  <section id="change">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>6か月後——あなたは、もっと自然に笑っている。</h2>
+          <p class="lead">
+            姿勢が整い、声が穏やかに強くなり、写真に写る自分をやさしく受け入れられる。<br/>
+            それは“頑張って作った自分”ではなく、“戻ってきた自分”です。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>この6か月で得られるもの</h3>
+          <p>
+            ✔ 自己否定の少ない毎日<br/>
+            ✔ 人前で自然に立てる安心感<br/>
+            ✔ 整った身体<br/>
+            ✔ 凛とした存在感<br/>
+            ✔ 一生残る写真という証
+          </p>
+        </div>
+        <div class="card">
+          <h3>大切にしている約束</h3>
+          <p>
+            ここは、ミスコンでもダイエット企画でもありません。<br/>
+            あなたがあなたを信じられるようになるための、自己認識変革プログラムです。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINALE -->
+  <section>
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>6か月後のフィナーレ：ARZEN GRAND STAGE</h2>
+          <p class="lead">
+            小さな挑戦の積み重ねの先に、あなたは「変わった自分」と向き合う。<br/>
+            そして写真を見るとき、そこには——誇れる自分が立っています。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h3>フィナーレ内容</h3>
+          <p>
+            ✔ 自己表現スピーチ<br/>
+            ✔ ウォーキング<br/>
+            ✔ ポージング<br/>
+            ✔ Matthewによる特別撮影
+          </p>
+        </div>
+        <div class="card">
+          <h3>ALL GRAND PRIX認定</h3>
+          <p>
+            参加者全員が、ALL GRAND PRIX。<br/>
+            比べて勝つのではなく、“自分史上最高”を証明するステージです。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section id="apply">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>参加費・定員</h2>
+          <p class="lead">
+            少人数だからこそ、丁寧に、深く。<br/>
+            6か月後に残るのは、変化だけではなく「証明」です。
+          </p>
+        </div>
+      </div>
+
+      <div class="price">
+        <div class="card">
+          <span class="badge">10名限定</span>
+          <div class="bigPrice">¥770,000<span style="font-size:16px; font-weight:normal; color:var(--muted);">（税込）</span></div>
+          <p class="fine">分割可：¥130,000 × 6回</p>
+          <ul class="list">
+            <li>週1：栄養・食事サポート（全24回）</li>
+            <li>月1：パーソナルコーチング（全6回）</li>
+            <li>月1：姿勢・ポージング（全6回）</li>
+            <li>月1：Matthew Mind Talk（全6回）</li>
+            <li>フィナーレ：ARZEN GRAND STAGE + 特別撮影</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>無料説明会（または個別相談）で話すこと</h3>
+          <p>
+            ・今の悩み（自信／身体／写真／人前）<br/>
+            ・6か月で目指したい姿<br/>
+            ・不安のポイント（時間・費用・続けられるか）<br/>
+            ・あなたに合う進め方（無理なく続く設計）
+          </p>
+
+          <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn btnPrimary" href="<!-- 申込みフォームURL -->">無料説明会 / 申込み</a>
+            <a class="btn" href="<!-- お問い合わせURL -->">質問する</a>
+          </div>
+
+          <p class="mini" style="margin-top:16px;">
+            ※フォームURLを差し替えてください（STUDIO/ペライチ/Googleフォーム対応）
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="mini">
+        ARZEN BLOOM｜日本の精神性 × 世界基準の美が出会う場所<br/>
+        © ARZEN BLOOM. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
